@@ -1,0 +1,27 @@
+{
+    "player1": {
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYIGEkZeISAhjH5YKvUCGmasmm2QJGC7jghw&usqp=CAU",
+        "name": "David Degea",
+        "position": "Goalkeeper",
+        "uid": ""
+    },
+    "player2": {
+        "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTGpx97vcbHEMnTR-u1IsDesTBdyk7V1D3Vw&usqp=CAU",
+        "name": "Victor Lindelof",
+        "position": "Defenders",
+        "uid": ""
+    },
+    "player3": {
+        "imageUrl": "",
+        "name": "Paul Pogba",
+        "position": "Midfielder",
+        "uid": ""
+    },
+
+    "player4": {
+        "imageUrl": "",
+        "name": "Cristiano Ronaldo",
+        "position": "Forward",
+        "uid": ""
+    }
+}
