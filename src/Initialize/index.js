@@ -3,11 +3,10 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import Navigation from '../components/Navigation';
 import SignIn from '../views/SignIn';
-// import getPlayers from '../api/data/playerdata';
+import Routes from '../routes';
 
 function Initialize() {
   const [user, setUser] = useState(null);
-  // const [players, setPlayers] = useState([]);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authenticated) => {
@@ -30,6 +29,7 @@ function Initialize() {
       {user ? (
         <>
           <Navigation />
+          <Routes />
         </>
       ) : (
         <SignIn />

@@ -9,4 +9,35 @@ const getPlayers = () => new Promise((resolve, reject) => {
     .then((response) => resolve(Object.values(response.data)))
     .catch(reject);
 });
-export default getPlayers;
+
+const createPlayer = (obj) => new Promise((resolve, reject) => {
+  axios
+    .post(`${dbURL}/players.json`, obj)
+    .then((response) => {
+      const firebaseKey = response.data.name;
+      axios
+        .patch(`${dbURL}/players/{firebaseKey}.json`, { firebaseKey })
+        .then(() => {
+          getPlayers().then(resolve);
+        });
+    })
+    .catch(reject);
+});
+
+const updatePlayer = (obj) => new Promise((resolve, reject) => {
+  axios
+    .patch(`${dbURL}/players/${obj.firebaseKey}.json`, obj)
+    .then(() => getPlayers().then(resolve))
+    .catch(reject);
+});
+
+const deletePlayer = (firebaseKey) => new Promise((resolve, reject) => {
+  axios
+    .delete(`${dbURL}/players/${firebaseKey}.json`)
+    .then(() => getPlayers().then(resolve))
+    .catch(reject);
+});
+
+export {
+  getPlayers, createPlayer, updatePlayer, deletePlayer,
+};
