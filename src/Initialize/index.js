@@ -4,9 +4,12 @@ import 'firebase/auth';
 import Navigation from '../components/Navigation';
 import SignIn from '../views/SignIn';
 import Routes from '../routes';
+import { getPlayers } from '../api/data/playerdata';
 
 function Initialize() {
   const [user, setUser] = useState(null);
+  const [players, setPlayers] = useState([]);
+  const [editPlayer, setEditPlayer] = useState({});
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authenticated) => {
@@ -18,6 +21,7 @@ function Initialize() {
           user: authenticated.email.split('@')[0],
         };
         setUser(userInfoObject);
+        getPlayers(userInfoObject).then(setPlayers);
       } else if (user || user === null) {
         setUser(false);
       }
@@ -29,7 +33,13 @@ function Initialize() {
       {user ? (
         <>
           <Navigation />
-          <Routes />
+          <h1> Manchester United </h1>
+          <Routes
+            players={players}
+            setPlayers={setPlayers}
+            player={editPlayer}
+            setEditPlayer={setEditPlayer}
+          />
         </>
       ) : (
         <SignIn />

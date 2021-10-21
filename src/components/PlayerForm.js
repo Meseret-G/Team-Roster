@@ -13,7 +13,7 @@ const initialState = {
   uid: '',
 };
 
-export default function PlayerForm({ obj, setPlayers }) {
+export default function PlayerForm({ obj, setPlayers, setEditPlayer }) {
   const [formInput, setFormInput] = useState(initialState);
   // check if a firebaseKey exist when the component mounts. If it does, set the value of the form input to the obj(player) data
   useEffect(() => {
@@ -30,6 +30,7 @@ export default function PlayerForm({ obj, setPlayers }) {
   // Reset the initial state on call of the resetForm function
   const resetForm = () => {
     setFormInput(initialState);
+    setEditPlayer({});
   };
 
   const handleChange = (e) => {
@@ -56,17 +57,6 @@ export default function PlayerForm({ obj, setPlayers }) {
     <div>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label for="imageUrl">Image URL</Label>
-          <Input
-            type="text"
-            name="imageUrl"
-            id="imageUrl"
-            value={formInput.imageUrl}
-            placeholder="Player image URL"
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
           <Label for="name">Name</Label>
           <Input
             type="text"
@@ -76,6 +66,17 @@ export default function PlayerForm({ obj, setPlayers }) {
             placeholder="Player Name"
             onChange={handleChange}
             required
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="imageUrl">Image URL</Label>
+          <Input
+            type="text"
+            name="imageUrl"
+            id="imageUrl"
+            value={formInput.imageUrl}
+            placeholder="Player image URL"
+            onChange={handleChange}
           />
         </FormGroup>
         <FormGroup>
@@ -115,6 +116,7 @@ PlayerForm.propTypes = {
     uid: PropTypes.string,
   }),
   setPlayers: PropTypes.func.isRequired,
+  setEditPlayer: PropTypes.func.isRequired,
 };
 
 PlayerForm.defaultProps = {
