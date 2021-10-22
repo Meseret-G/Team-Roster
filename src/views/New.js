@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PlayerForm from '../components/PlayerForm';
 
-export default function New({ player, setPlayers, setEditPlayer }) {
+export default function New({
+  player, setPlayers, setEditPlayer, user,
+}) {
   return (
     <>
       <h1>Add A Player</h1>
@@ -10,6 +12,7 @@ export default function New({ player, setPlayers, setEditPlayer }) {
         player={player}
         setPlayers={setPlayers}
         setEditPlayer={setEditPlayer}
+        user={user}
       />
     </>
   );
@@ -21,9 +24,13 @@ New.propTypes = {
     firebaseKey: PropTypes.string,
     position: PropTypes.string,
     imageUrl: PropTypes.string,
+    uid: PropTypes.string,
   }),
   setPlayers: PropTypes.func.isRequired,
   setEditPlayer: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    uid: PropTypes.string,
+  }).isRequired,
 };
 
 New.defaultProps = { player: {} };

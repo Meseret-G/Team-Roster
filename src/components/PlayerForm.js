@@ -3,6 +3,7 @@ import {
   Label, Input, FormGroup, Form, Button,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { createPlayer, updatePlayer } from '../api/data/playerdata';
 
 // inital state obj
@@ -13,8 +14,11 @@ const initialState = {
   uid: '',
 };
 
-export default function PlayerForm({ obj, setPlayers, setEditPlayer }) {
+export default function PlayerForm({
+  obj, setPlayers, setEditPlayer, user,
+}) {
   const [formInput, setFormInput] = useState(initialState);
+  const history = useHistory();
   // check if a firebaseKey exist when the component mounts. If it does, set the value of the form input to the obj(player) data
   useEffect(() => {
     if (obj.firebaseKey) {
@@ -29,7 +33,7 @@ export default function PlayerForm({ obj, setPlayers, setEditPlayer }) {
   }, [obj]);
   // Reset the initial state on call of the resetForm function
   const resetForm = () => {
-    setFormInput(initialState);
+    setFormInput({ ...initialState });
     setEditPlayer({});
   };
 
@@ -45,11 +49,13 @@ export default function PlayerForm({ obj, setPlayers, setEditPlayer }) {
       updatePlayer(formInput).then((players) => {
         setPlayers(players);
         resetForm();
+        history.push('/team');
       });
     } else {
-      createPlayer(formInput).then((players) => {
+      createPlayer({ ...formInput, uid: user.uid }).then((players) => {
         setPlayers(players);
         resetForm();
+        history.push('/team');
       });
     }
   };
@@ -117,6 +123,9 @@ PlayerForm.propTypes = {
   }),
   setPlayers: PropTypes.func.isRequired,
   setEditPlayer: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    uid: PropTypes.string,
+  }).isRequired,
 };
 
 PlayerForm.defaultProps = {
