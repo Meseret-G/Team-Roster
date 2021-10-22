@@ -6,33 +6,31 @@ import Team from '../views/Team';
 import New from '../views/New';
 
 export default function Routes({
-  player, players, setPlayers, setEditPlayer,
+  player,
+  players,
+  setPlayers,
+  setEditPlayer,
+  user,
 }) {
   return (
     <div>
       <Switch>
-        <Route
-          exact
-          path="/Team"
-          component={() => (
-            <Team
-              players={players}
-              setPlayers={setPlayers}
-              setEditPlayer={setEditPlayer}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/New"
-          component={() => (
-            <New
-              player={player}
-              setPlayers={setPlayers}
-              setEditPlayer={setEditPlayer}
-            />
-          )}
-        />
+        <Route exact path="/Team">
+          <Team
+            user={user}
+            players={players}
+            setPlayers={setPlayers}
+            setEditPlayer={setEditPlayer}
+          />
+        </Route>
+        <Route exact path="/New">
+          <New
+            user={user}
+            obj={player}
+            setPlayers={setPlayers}
+            setEditPlayer={setEditPlayer}
+          />
+        </Route>
       </Switch>
     </div>
   );
@@ -43,10 +41,14 @@ Routes.propTypes = {
     firebaseKey: PropTypes.string,
     position: PropTypes.string,
     imageUrl: PropTypes.string,
+    uid: PropTypes.string,
   }),
   players: PropTypes.arrayOf(PropTypes.object).isRequired,
   setPlayers: PropTypes.func.isRequired,
   setEditPlayer: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    uid: PropTypes.string,
+  }).isRequired,
 };
 
 Routes.defaultProps = { player: {} };

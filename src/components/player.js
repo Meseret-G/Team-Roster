@@ -9,20 +9,29 @@ import {
   Button,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-import { deletePlayer, updatePlayer } from '../api/data/playerdata';
+import { useHistory } from 'react-router-dom';
+import { deletePlayer } from '../api/data/playerdata';
 
 export default function Player({ player, setPlayers, setEditPlayer }) {
+  const history = useHistory();
   const handleClick = (method) => {
     if (method === 'delete') {
       deletePlayer(player.firebaseKey).then(setPlayers);
-    } else {
-      updatePlayer(player).then(setPlayers);
+    } else if (method === 'edit') {
+      setEditPlayer(player);
+      history.push('/new');
     }
   };
   return (
     <div>
       <Card>
-        <CardImg top width="100%" src={player.imageUrl} alt="Player Image" />
+        <CardImg
+          top
+          width="15%"
+          height="20%"
+          src={player.imageUrl}
+          alt="Player Image"
+        />
         <CardBody>
           <CardTitle tag="h5">{player.name}</CardTitle>
           <CardSubtitle tag="h6" className="mb-2 text-muted">
@@ -30,7 +39,7 @@ export default function Player({ player, setPlayers, setEditPlayer }) {
           </CardSubtitle>
           <CardText> Player Description </CardText>
           <Button
-            onClick={() => setEditPlayer(player)}
+            onClick={() => handleClick('edit')}
             className="btn btn-success"
           >
             Edit

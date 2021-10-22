@@ -39,10 +39,11 @@ function Initialize() {
             setPlayers={setPlayers}
             player={editPlayer}
             setEditPlayer={setEditPlayer}
+            user={user}
           />
         </>
       ) : (
-        <SignIn />
+        <SignIn user={user} />
       )}
     </>
   );
