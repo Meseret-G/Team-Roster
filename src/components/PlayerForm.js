@@ -1,10 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Label, Input, FormGroup, Form, Button,
+  Label, Input, FormGroup, Form,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { createPlayer, updatePlayer } from '../api/data/playerdata';
+
+const FormStyle = styled.div`
+  button {
+    margin-left: 350px;
+    text-align: center;
+    width: 100px;
+    background-color: gray;
+  }
+  .form-select {
+    margin-bottom: 20px;
+  }
+`;
 
 // inital state obj
 const initialState = {
@@ -15,22 +28,25 @@ const initialState = {
 };
 
 export default function PlayerForm({
-  obj, setPlayers, setEditPlayer, user,
+  player,
+  setPlayers,
+  setEditPlayer,
+  user,
 }) {
   const [formInput, setFormInput] = useState(initialState);
   const history = useHistory();
   // check if a firebaseKey exist when the component mounts. If it does, set the value of the form input to the obj(player) data
   useEffect(() => {
-    if (obj.firebaseKey) {
+    if (player.firebaseKey) {
       setFormInput({
-        firebaseKey: obj.firebaseKey,
-        name: obj.name,
-        position: obj.position,
-        imageUrl: obj.imageUrl,
-        uid: obj.uid,
+        firebaseKey: player.firebaseKey,
+        name: player.name,
+        position: player.position,
+        imageUrl: player.imageUrl,
+        uid: player.uid,
       });
     }
-  }, [obj]);
+  }, [player]);
   // Reset the initial state on call of the resetForm function
   const resetForm = () => {
     setFormInput({ ...initialState });
@@ -45,12 +61,11 @@ export default function PlayerForm({
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (obj.firebaseKey) {
-      updatePlayer(formInput).then((players) => {
-        setPlayers(players);
-        resetForm();
-        history.push('/team');
-      });
+    if (player.firebaseKey) {
+      updatePlayer(formInput).then(setPlayers);
+      // setPlayers(players);
+      resetForm();
+      history.push('/team');
     } else {
       createPlayer({ ...formInput, uid: user.uid }).then((players) => {
         setPlayers(players);
@@ -60,10 +75,10 @@ export default function PlayerForm({
     }
   };
   return (
-    <div>
+    <FormStyle>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Label for="name">Name</Label>
+          <Label htmlFor="name">Name</Label>
           <Input
             type="text"
             name="name"
@@ -75,7 +90,7 @@ export default function PlayerForm({
           />
         </FormGroup>
         <FormGroup>
-          <Label for="imageUrl">Image URL</Label>
+          <Label htmlFor="imageUrl">Image URL</Label>
           <Input
             type="text"
             name="imageUrl"
@@ -86,7 +101,7 @@ export default function PlayerForm({
           />
         </FormGroup>
         <FormGroup>
-          <Label for="position"> Position</Label>
+          <Label htmlFor="position"> Position</Label>
           <Input
             className="form-select"
             type="select"
@@ -105,16 +120,16 @@ export default function PlayerForm({
             <option value="Forward">Forward</option>
           </Input>
         </FormGroup>
-        <Button className="btn btn-success" type="submit">
-          {obj.firebaseKey ? 'Update' : 'Submit'}
-        </Button>
+        <button className="btn btn-success" type="submit">
+          {player.firebaseKey ? 'Update' : 'Submit'}
+        </button>
       </Form>
-    </div>
+    </FormStyle>
   );
 }
 
 PlayerForm.propTypes = {
-  obj: PropTypes.shape({
+  player: PropTypes.shape({
     imageUrl: PropTypes.string,
     name: PropTypes.string,
     firebaseKey: PropTypes.string,
@@ -129,5 +144,5 @@ PlayerForm.propTypes = {
 };
 
 PlayerForm.defaultProps = {
-  obj: {},
+  player: {},
 };

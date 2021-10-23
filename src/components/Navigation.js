@@ -10,14 +10,14 @@ const NavigationStyle = styled.div`
   margin: 20px;
   button {
     background-color: gray;
-    color: orange;
+    color: white;
     flex-wrap: wrap;
     display: flex;
-    padding: 10px;
+    padding: 8px;
     text-align: center;
     margin-left: 10px;
     margin-right: 10px;
-    border-radius: 4px black;
+    border-radius: 2px white;
     font-size: 16px;
     width: 150px;
     height: 50px;

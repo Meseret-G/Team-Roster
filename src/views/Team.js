@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Player from '../components/Player';
+import Player from '../components/player';
 import { getPlayers } from '../api/data/playerdata';
 
 export default function Team({
@@ -17,7 +17,7 @@ export default function Team({
   }, [players]);
   return (
     <>
-      <h1>TEAM</h1>
+      <h1>Roster</h1>
 
       {players.map((player) => (
         <Player
