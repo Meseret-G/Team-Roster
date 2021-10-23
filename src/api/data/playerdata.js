@@ -9,12 +9,13 @@ const getPlayers = () => new Promise((resolve, reject) => {
     .then((response) => resolve(Object.values(response.data)))
     .catch(reject);
 });
-const getSinglePlayer = (uid) => new Promise((resolve, reject) => {
-  axios
-    .get(`${dbURL}/players.json ?orderBy="uid"&equalTo="${uid}"`)
-    .then((response) => resolve(Object.values(response.data)))
-    .catch(reject);
-});
+
+// const getSinglePlayer = (uid) => new Promise((resolve, reject) => {
+//   axios
+//     .get(`${dbURL}/players.json ?orderBy="uid"&equalTo="${uid}"`)
+//     .then((response) => resolve(Object.values(response.data)))
+//     .catch(reject);
+// });
 const createPlayer = (obj) => new Promise((resolve, reject) => {
   axios
     .post(`${dbURL}/players.json`, obj)
@@ -32,7 +33,7 @@ const createPlayer = (obj) => new Promise((resolve, reject) => {
 const updatePlayer = (obj) => new Promise((resolve, reject) => {
   axios
     .patch(`${dbURL}/players/${obj.firebaseKey}.json`, obj)
-    .then(() => getSinglePlayer(obj.uid).then(resolve))
+    .then(() => getPlayers(obj.firebaseKey).then(resolve))
     .catch(reject);
 });
 
