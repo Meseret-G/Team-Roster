@@ -29,7 +29,7 @@ function Initialize() {
     firebase.auth().onAuthStateChanged((authenticated) => {
       if (authenticated) {
         const userInfoObject = {
-          fullNmae: authenticated.displayName,
+          fullName: authenticated.displayName,
           profileImage: authenticated.photoURL,
           uid: authenticated.uid,
           user: authenticated.email.split('@')[0],
@@ -47,7 +47,7 @@ function Initialize() {
       {user ? (
         <Container>
           <Navigation />
-          <h1> Manchester United </h1>
+          <h1> Man Utd Team</h1>
           <Routes
             players={players}
             setPlayers={setPlayers}

@@ -26,7 +26,7 @@ export default function Routes({
         <Route exact path="/New">
           <New
             user={user}
-            obj={player}
+            player={player}
             setPlayers={setPlayers}
             setEditPlayer={setEditPlayer}
           />
