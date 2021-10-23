@@ -1,10 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import styled from 'styled-components';
 import Navigation from '../components/Navigation';
 import SignIn from '../views/SignIn';
 import Routes from '../routes';
 import { getPlayers } from '../api/data/playerdata';
+
+const Container = styled.div`
+  width: 60%;
+  margin: auto;
+  padding: 50px 0;
+
+  h1 {
+    color: white;
+    text-align: center;
+    font-size: 64px;
+    font-weight: 400;
+  }
+`;
 
 function Initialize() {
   const [user, setUser] = useState(null);
@@ -31,7 +45,7 @@ function Initialize() {
   return (
     <>
       {user ? (
-        <>
+        <Container>
           <Navigation />
           <h1> Manchester United </h1>
           <Routes
@@ -41,7 +55,7 @@ function Initialize() {
             setEditPlayer={setEditPlayer}
             user={user}
           />
-        </>
+        </Container>
       ) : (
         <SignIn user={user} />
       )}

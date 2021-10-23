@@ -1,12 +1,33 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { ButtonGroup } from 'reactstrap';
+import styled from 'styled-components';
 import { signOutUser } from '../api/auth';
+
+const NavigationStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  button {
+    background-color: gray;
+    color: orange;
+    flex-wrap: wrap;
+    display: flex;
+    padding: 10px;
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 4px black;
+    font-size: 16px;
+    width: 150px;
+    height: 50px;
+  }
+`;
 
 export default function Navigation() {
   const history = useHistory();
   return (
-    <div>
+    <NavigationStyle>
       <ButtonGroup size="lg">
         <button
           onClick={() => history.push('/team')}
@@ -30,6 +51,6 @@ export default function Navigation() {
           SignOut
         </button>
       </ButtonGroup>
-    </div>
+    </NavigationStyle>
   );
 }

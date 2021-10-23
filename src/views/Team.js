@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Player from '../components/player';
+import Player from '../components/Player';
 import { getPlayers } from '../api/data/playerdata';
 
 export default function Team({
