@@ -35,7 +35,6 @@ export default function PlayerForm({
 }) {
   const [formInput, setFormInput] = useState(initialState);
   const history = useHistory();
-  // check if a firebaseKey exist when the component mounts. If it does, set the value of the form input to the obj(player) data
   useEffect(() => {
     if (player.firebaseKey) {
       setFormInput({
@@ -47,7 +46,6 @@ export default function PlayerForm({
       });
     }
   }, [player]);
-  // Reset the initial state on call of the resetForm function
   const resetForm = () => {
     setFormInput({ ...initialState });
     setEditPlayer({});
@@ -63,7 +61,6 @@ export default function PlayerForm({
     e.preventDefault();
     if (player.firebaseKey) {
       updatePlayer(formInput).then(setPlayers);
-      // setPlayers(players);
       resetForm();
       history.push('/team');
     } else {
