@@ -35,7 +35,7 @@ function Initialize() {
           user: authenticated.email.split('@')[0],
         };
         setUser(userInfoObject);
-        getPlayers(userInfoObject).then(setPlayers);
+        getPlayers().then(setPlayers);
       } else if (user || user === null) {
         setUser(false);
       }
