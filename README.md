@@ -2,6 +2,7 @@
 Man United Team Roaster
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/9cbd2ca4-9ec2-49f0-a3b7-e7a38a0b0086/deploy-status)](https://app.netlify.com/sites/mng-manunited-teamroster/deploys)
+https://mng-manunited-teamroster.netlify.app/
 
 This template includes all the dependencies and set up needed for you to work within defined code standards and structure to get you up and running quickly.
 
